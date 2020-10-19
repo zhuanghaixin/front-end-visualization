@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>气泡图</title>
+    <! --引入最新版的L7-->
+    <script src = 'https://unpkg.com/@antv/l7'></script>
+    <style>
+        html,body{
+            margin: 0;
+            padding: 0;
+        }
+    </style>
+</head>
+<body>
+<div id="l7-map">
+</div>
+<script>
+    const scene = new L7.Scene({
+        id: "l7-map",
+        map: new L7.GaodeMap({
+            // style: "dark", // 样式URL
+            center: [113.938533,22.531258],//杭州坐标
+            pitch: 0, //观察地图的角度
+            zoom: 5, //放大比例
+            token: '0c2bed2ebc23c65fb6e04b7f0930f2d9'//高德地图的key
+        })
+    });
+    scene.on('loaded', function() {
+        fetch(
+            'https://gw.alipayobjects.com/os/basement_prod/337ddbb7-aa3f-4679-ab60-d64359241955.json'
+        )
+            .then(res => res.json())
+            .then(data => {
+                console.log(data);
+                data.features = data.features.filter(item => item.properties.capacity > 1000); //数据清洗
+                const pointLayer = new L7.PointLayer({})
+                    .source(data) //传入数据源
+                    .shape('circle') //绘制图形
+                    .size('capacity', [0, 16]) //确认渲染范围 会自动到对应properties下去找capacity的key值
+                    .color('capacity', [
+                        '#34B6B7',
+                        '#4AC5AF',
+                        '#5FD3A6',
+                        '#7BE39E',
+                        '#A1EDB8',
+                        '#CEF8D6'
+                    ])
+                    .style({
+                        strokeWidth: 0,
+                        opacity: 0.5
+                    })
+                    .active(true);  //添加交互事件
+
+                scene.addLayer(pointLayer);
+            });
+    });
+</script>
+</body>
+</html>

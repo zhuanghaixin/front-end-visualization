@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="https://gw.alipayobjects.com/os/lib/antv/g6/3.7.1/dist/g6.min.js"></script>
+    <style>
+
+    </style>
+    <title>G6</title>
+</head>
+<body>
+<!--创建一个 G6 的关系图仅需要下面几个步骤：-->
+
+<!--创建关系图的 HTML 容器；-->
+<!--数据准备；-->
+<!--创建关系图；-->
+<!--配置数据源，渲染。-->
+
+<!--Step 1 创建容器-->
+<!--需要在 HTML 中创建一个用于容纳 G6 绘制的图的容器，通常为 div  标签。G6 在绘制时会在该容器下追加 canvas 标签，然后将图绘制在其中。-->
+<div id="g6-chart"></div>
+<script>
+
+    // Step 2 数据准备
+    // 引入 G6 的数据源为 JSON 格式的对象。该对象中需要有节点（nodes）和边（edges）字段，分别用数组表示：
+    const data = {
+        // 点集
+        nodes: [
+            {
+                id: 'node1', // String，该节点存在则必须，节点的唯一标识
+                x: 50, // Number，可选，节点位置的 x 值
+                y: 100, // Number，可选，节点位置的 y 值
+                label: '起始点',//文本
+                size: 60,//大小
+                //文本设置
+                labelCfg: {
+                    position: 'top',
+                    style: {
+                        fontSize: 15,
+                        fill: '#f00'
+                    }
+                },
+                //图形颜色
+                style: {
+                    fill: '#ff0',
+                    stroke: '#ddd',
+                    lineWidth: 1
+                }
+
+            },
+            {
+                id: 'node2', // String，该节点存在则必须，节点的唯一标识
+                x: 300, // Number，可选，节点位置的 x 值
+                y: 100, // Number，可选，节点位置的 y 值
+                label: '目标点1',//文本
+                size: 80 //大小
+            }, {
+                id: 'node3', // String，该节点存在则必须，节点的唯一标识
+                x: 600, // Number，可选，节点位置的 x 值
+                y: 100, // Number，可选，节点位置的 y 值
+                label: '目标点2',//文本
+                size: 120 //大小
+            },
+        ],
+        // 边集 建立node1和node2的关系
+        edges: [
+            {
+                source: 'node1', // String，必须，起始点 id
+                target: 'node2', // String，必须，目标点 id
+                label: '连接线1'
+            },
+            {
+                source: 'node2', // String，必须，起始点 id
+                target: 'node3', // String，必须，目标点 id
+                label: '连接线2'
+            },
+        ],
+    };
+    // Step 3 创建关系图
+    // 创建关系图（实例化）时，至少需要为图设置容器、宽和高。
+    const graph = new G6.Graph({
+        container: 'g6-chart', // String | HTMLElement，必须，在 Step 1 中创建的容器 id 或容器本身
+        width: 800, // Number，必须，图的宽度
+        height: 500, // Number，必须，图的高度
+    });
+
+    // Step 4 配置数据源，渲染
+    graph.data(data); // 读取 Step 2 中的数据源到图上
+    graph.render(); // 渲染图
+</script>
+</body>
+</html>
+

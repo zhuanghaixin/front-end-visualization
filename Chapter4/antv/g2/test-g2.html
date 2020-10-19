@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+<!--    <script src="https://unpkg.com/@antv/g2plot@latest/dist/g2plot.min.js"></script>-->
+    <script src="./node_modules/@antv/g2plot/dist/g2plot.min.js"></script>
+    <style>
+        #g2-chart{
+            width: 600px;
+            height: 600px;
+        }
+    </style>
+    <title>G2</title>
+</head>
+<body>
+<div id="g2-chart"></div>
+<script>
+    const data = [
+        { year: '1991', value: 3 },
+        { year: '1992', value: 4 },
+        { year: '1993', value: 3.5 },
+        { year: '1994', value: 5 },
+        { year: '1995', value: 4.9 },
+        { year: '1996', value: 6 },
+        { year: '1997', value: 7 },
+        { year: '1998', value: 9 },
+        { year: '1999', value: 13 },
+    ];
+    const chartDom = document.getElementById('g2-chart');
+    const line = new G2Plot.Line(chartDom, {
+        title: {
+            visible: true,
+            text: 'G2折线图示例'
+        },
+        data,
+        xField:'year',
+        yField:'value',
+        width:600,
+        height:400,
+        point: {
+            visible: true,
+            size: 5,
+            color: '#fff',
+            style: {
+                fill: 'red',
+                fillOpacity: 0.5,
+                stroke: 'black',
+                lineWidth: 1,
+                lineDash: [4, 5],
+                strokeOpacity: 0.7,
+                shadowColor: 'black',
+                shadowBlur: 10,
+                shadowOffsetX: 5,
+                shadowOffsetY: 5,
+                cursor: 'pointer'
+            }
+        },
+        label: {
+            style: {
+                fill: 'red',
+                opacity: 0.6,
+                fontSize: 24
+            },
+            rotate: true
+        },
+        color: '#4ef627',
+        yAxis:{
+            label: {
+                visible:true,
+                formatter: (v) => {
+                    return `${v}k`;
+                },
+                content:(v) => {
+                    console.log(111)
+                    return `${v}k`;
+                },
+            }
+        }
+    });
+    line.render();
+</script>
+</body>
+</html>
+
+<!--<!doctype html>-->
+<!--<html lang="en">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <meta name="viewport"-->
+<!--          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">-->
+<!--    <meta http-equiv="X-UA-Compatible" content="ie=edge">-->
+<!--    <script src="./node_modules/@antv/g2plot/dist/g2plot.min.js">-->
+<!--    </script>-->
+<!--    <title>Document</title>-->
+<!--    <style>-->
+<!--        #g2-cart{-->
+<!--            width: 400px;-->
+<!--            height: 400px;-->
+<!--        }-->
+<!--    </style>-->
+<!--</head>-->
+<!--<body>-->
+<!--&lt;!&ndash;1.绘图容器&ndash;&gt;-->
+<!--<div id="g2-chart"></div>-->
+<!--<script>-->
+
+
+<!--    const data = [-->
+<!--        { year: '1951 年', sales: 38 },-->
+<!--        { year: '1952 年', sales: 52 },-->
+<!--        { year: '1956 年', sales: 61 },-->
+<!--        { year: '1957 年', sales: 145 },-->
+<!--        { year: '1958 年', sales: 48 },-->
+<!--    ];-->
+<!--    const container=document.getElementById('container'); //绘图容器-->
+<!--    const plot = new G2Plot.Line('container', {-->
+<!--        title:{-->
+<!--            visible: true,-->
+<!--            text: 'g2折线图示例',-->
+<!--        },-->
+<!--        data,-->
+<!--        xField: 'sales',-->
+<!--        yField: 'year',-->
+<!--        seriesField: 'year',-->
+<!--        width:400,-->
+<!--        height:400-->
+<!--    });   //绘图对象-->
+
+<!--    plot.render();-->
+<!--</script>-->
+<!--</body>-->
+<!--</html>-->

@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Echarts组件</title>
+    <script src="https://cdn.jsdelivr.net/npm/echarts@4.9.0/dist/echarts.js"></script>
+    <style>
+        #chart {
+            width: 600px;
+            height: 400px;
+        }
+    </style>
+</head>
+<body>
+<script src="./shine.js"></script>
+<div id="chart"></div>
+<script>
+    /*
+    * ECharts 中除了绘图之外其他部分，都可抽象为 「组件」。
+    * 例如，ECharts 中至少有这些组件：xAxis（直角坐标系 X 轴）、yAxis（直角坐标系 Y 轴）、grid（直角坐标系底板）、angleAxis（极坐标系角度轴）...
+    *
+    *
+    * */
+    const chartDom = document.getElementById('chart')
+    // 基于准备好的dom，初始化echarts实例  //设置主题 light/dark
+    const chart = echarts.init(chartDom, 'shine')
+    // 指定图表的配置项和数据
+    const option = {
+        //使用dataset管理数据
+        dataset:{
+            source:[
+               ["第一季度",5,7,'分类1',50],
+               ["第二季度",20,24,'分类2',60],
+               ["第三季度",36,40,'分类3',70],
+               ["第四季度",10,15,'分类4',80]
+            ]
+        },
+        //标题
+        title: {
+            text: 'Echarts 组件案例',
+            subText:'慕课网数据可视化课程'  //副标题
+
+        },
+
+        //x轴
+        xAxis: {
+            data: ["第一季度", "第二季度", "第三季度", "第四季度"]
+        },
+        //y轴
+        yAxis: {},
+        legend:{   //图例  //修改图例的样式 {}
+            data:[
+                {
+                    name:'分类',
+                    icon:'circle', //修改图例的样式 {}
+                    textStyle:{
+                        color:'blue'
+                    }
+                },
+                '折线图',
+                '柱状图']
+            ,
+            left:'center' //图例组件的位置 图例组件离容器左侧的距离。
+                        // left 的值可以是像 20 这样的具体像素值，可以是像 '20%' 这样相对于容器高宽的百分比，也可以是 'left', 'center', 'right'。
+                        // 如果 left 的值为'left', 'center', 'right'，组件会根据相应的位置自动对齐。
+        },
+        toolbox:{ //工具栏。内置有导出图片，数据视图，动态类型切换，数据区域缩放，重置五个工具。
+            feature:{  //各工具配置项。
+                restore:{},  //配置项还原。
+                saveAsImage:{}, //保存为图片。
+                dataZoom:{
+                    yAxisIndex:false
+                } //数据区域缩放。目前只支持直角坐标系的缩放。 { show , title , icon , iconStyle , emphasis , filterMode , xAxisIndex , yAxisIndex , brushStyle }
+
+            }
+
+        },
+        dataZoom:[ //dataZoom 组件 用于区域缩放，从而能自由关注细节的数据信息，或者概览数据整体，或者去除离群点的影响。
+            {
+                type: 'slider',
+                show: true,
+                xAxisIndex: [0],
+                start: 0,
+                end: 100
+            },
+            {
+                type: 'slider',
+                show: true,
+                yAxisIndex: [0],
+                left: '93%',
+                start: 0,
+                end: 100
+            },
+            {
+                type: 'inside',
+                xAxisIndex: [0],
+                start: 0,
+                end: 100
+            },
+            {
+                type: 'inside',
+                yAxisIndex: [0],
+                start: 0,
+                end: 100
+            }
+        ],
+        //图表类型
+        series: [
+            {
+                name:'分类', //图例的名字
+                type: 'pie',
+                center: ['40%', '20%'],  //饼图位置
+                radius: 35,
+                // data: [
+                //     {name: '分类1', value: 50},
+                //     {name: '分类2', value: 60},
+                //     {name: '分类3', value: 70},
+                //     {name: '分类4', value: 80}
+                // ]
+                encode:{itemName:3,value:4}  //饼图 itemValue value 不能改的
+
+            },
+            {
+                name:'柱状图',
+                type: 'bar',
+                // data: [5, 20, 36, 10]
+                encode:{x:0,y:2}
+
+            },
+            {
+                name:'折线图',
+                type:'line',
+                // data:[7, 24, 40, 15]
+                    encode:{x:0,y:1}
+
+            }
+        ]
+    }
+    chart.setOption(option)
+</script>
+</body>
+</html>

@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Echarts自定义主题</title>
+    <script src="https://cdn.jsdelivr.net/npm/echarts@4.9.0/dist/echarts.js"></script>
+    <style>
+        #chart{
+            width: 600px;
+            height: 400px;
+        }
+    </style>
+</head>
+<body>
+<script src="./shine.js"></script>
+<div id="chart"></div>
+<script>
+    const chartDom=document.getElementById('chart')
+    // 基于准备好的dom，初始化echarts实例  //设置主题 light/dark
+    const chart=echarts.init(chartDom,'shine')
+    // 指定图表的配置项和数据
+    const option={
+        //标题
+        title: {
+            text:'Echarts 入门案例'
+        },
+
+        //x轴
+        xAxis:{
+          data:["衬衫","羊毛衫","T-shirt","毛衣","羽绒服","外套"]
+        },
+        //y轴
+        yAxis:{
+
+        },
+        //图表类型
+        series:{
+            name: '销量',
+            type: 'bar',
+            data: [5, 20, 36, 10, 10, 20,24]
+        }
+    }
+    chart.setOption(option)
+</script>
+</body>
+</html>

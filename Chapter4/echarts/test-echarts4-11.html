@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Echarts坐标系—散点图</title>
+    <script src="https://cdn.jsdelivr.net/npm/echarts@4.9.0/dist/echarts.js"></script>
+    <style>
+        #chart {
+            width: 600px;
+            height: 400px;
+        }
+    </style>
+</head>
+<body>
+<script src="./shine.js"></script>
+<div id="chart"></div>
+<script>
+    /*
+    * ECharts 中除了绘图之外其他部分，都可抽象为 「组件」。
+    * 例如，ECharts 中至少有这些组件：xAxis（直角坐标系 X 轴）、yAxis（直角坐标系 Y 轴）、grid（直角坐标系底板）、angleAxis（极坐标系角度轴）...
+    *
+    *
+    * */
+    const chartDom = document.getElementById('chart')
+    // 基于准备好的dom，初始化echarts实例  //设置主题 light/dark
+    const chart = echarts.init(chartDom, 'shine')
+    // 指定图表的配置项和数据
+    const option = {
+        //使用dataset管理数据
+        xAxis:{},
+        yAxis:{},
+        dataset:{
+            source:[
+                [13,34],
+                [12,12],
+                [23,44],
+                [13,23],
+                [43,44],
+                ]
+        },
+        series:[
+            {
+                type: 'scatter',//散点图
+                encode:{x:0,y:1}
+            }
+        ]
+    }
+    chart.setOption(option)
+</script>
+</body>
+</html>

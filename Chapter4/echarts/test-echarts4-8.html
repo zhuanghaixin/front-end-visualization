@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Echarts新特性dataset</title>
+    <script src="https://cdn.jsdelivr.net/npm/echarts@4.9.0/dist/echarts.js"></script>
+    <style>
+        #chart {
+            width: 600px;
+            height: 400px;
+        }
+    </style>
+</head>
+<body>
+<script src="./shine.js"></script>
+<div id="chart"></div>
+<script>
+    const chartDom = document.getElementById('chart')
+    // 基于准备好的dom，初始化echarts实例  //设置主题 light/dark
+    const chart = echarts.init(chartDom, 'shine')
+    // 指定图表的配置项和数据
+    const option = {
+        //使用dataset管理数据
+        dataset:{
+            source:[
+               ["第一季度",5,7,'分类1',50],
+               ["第二季度",20,24,'分类2',60],
+               ["第三季度",36,40,'分类3',70],
+               ["第四季度",10,15,'分类4',80]
+            ]
+        },
+        //标题
+        title: {
+            text: 'Echarts新特性dataset'
+        },
+
+        //x轴
+        xAxis: {
+            data: ["第一季度", "第二季度", "第三季度", "第四季度"]
+        },
+        //y轴
+        yAxis: {},
+        //图表类型
+        series: [
+            {
+                type: 'pie',
+                center: ['50%', '50px'],  //饼图位置
+                radius: 35,
+                // data: [
+                //     {name: '分类1', value: 50},
+                //     {name: '分类2', value: 60},
+                //     {name: '分类3', value: 70},
+                //     {name: '分类4', value: 80}
+                // ]
+                encode:{itemName:3,value:4}  //饼图 itemValue value 不能改的
+
+            },
+            {
+                type: 'bar',
+                // data: [5, 20, 36, 10]
+                encode:{x:0,y:2}
+
+            },
+            {
+                type:'line',
+                // data:[7, 24, 40, 15]
+                    encode:{x:0,y:1}
+
+            }
+        ]
+    }
+    chart.setOption(option)
+</script>
+</body>
+</html>

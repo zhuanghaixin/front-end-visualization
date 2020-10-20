@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Echarts多坐标系</title>
+    <script src="https://cdn.jsdelivr.net/npm/echarts@4.9.0/dist/echarts.js"></script>
+    <style>
+        #chart {
+            width: 600px;
+            height: 400px;
+        }
+    </style>
+</head>
+<body>
+<script src="./shine.js"></script>
+<div id="chart"></div>
+<script>
+    /*
+    * ECharts 中除了绘图之外其他部分，都可抽象为 「组件」。
+    * 例如，ECharts 中至少有这些组件：xAxis（直角坐标系 X 轴）、yAxis（直角坐标系 Y 轴）、grid（直角坐标系底板）、angleAxis（极坐标系角度轴）...
+    *
+    *
+    * */
+    const chartDom = document.getElementById('chart')
+    // 基于准备好的dom，初始化echarts实例  //设置主题 light/dark
+    const chart = echarts.init(chartDom, 'shine')
+    // 指定图表的配置项和数据
+    const option = {
+        title: {
+            text: 'Echarts 多坐标系',
+            subText: '慕课网数据可视化课程'  //副标题
+        },
+        xAxis: [
+            {
+                //多坐标系需要指定类型
+                type: 'category',
+                gridIndex: 0  //对应的gird索引
+            },
+            {
+                //多坐标系需要指定类型
+                type: 'category',
+                gridIndex: 1   //对应的grid索引为1
+            },
+        ],
+        yAxis: [
+            {
+                min: 0, //坐标系刻度设置
+                max: 100,
+                gridIndex: 0  //对应的gird索引
+            }
+            ,
+            {
+                splitLine: {
+                    show: false   //将右边坐标系的线进行隐藏
+                },
+                gridIndex: 0  //对应的gird索引
+            },
+            {
+                min: 0, //坐标系刻度设置
+                max: 150,
+                gridIndex: 1  //对应的gird索引
+            }
+        ],
+        //为两个坐标系设置位置
+        grid: [
+            {bottom:'55%'},  //第一个距离下方55%，
+            {top:'55%'}  //第二个距离上方55%
+        ],
+        //使用dataset管理数据
+        dataset: {
+            source: [
+                ['product', '2012', '2013', '2014', '2015'],
+                ['Matcha Latte', 41.1, 30.4, 65.1, 53.3],
+                ['Milk Tea', 86.5, 92.1, 85.7, 83.1]
+            ]
+        },
+        series: [
+            {
+                type: 'bar',
+                seriesLayoutBy: 'row', //以行的方式来进行取数
+                xAxisIndex:0,//对应xAxis的第一个坐标系  xAxis:[{},{}],
+                yAxisIndex: 0 //对应yAxis的第一个坐标系    yAxis:[{},{}],
+            }, {
+                type: 'line',
+                seriesLayoutBy: 'row', //以行的方式来进行取数
+                xAxisIndex:0,//对应xAxis的第一个坐标系  xAxis:[{},{}],
+                yAxisIndex: 1 //对应yAxis的第一个坐标系    yAxis:[{},{}],
+            }, {
+                type: 'bar',
+                seriesLayoutBy: 'row', //以行的方式来进行取数
+                xAxisIndex:1,//对应xAxis的第一个坐标系  xAxis:[{},{}],
+                yAxisIndex: 2 //对应yAxis的第一个坐标系    yAxis:[{},{}],
+            }
+        ]
+    }
+    chart.setOption(option)
+</script>
+</body>
+</html>

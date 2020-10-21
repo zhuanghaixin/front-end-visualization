@@ -70,7 +70,7 @@ export default {
   .increase{
     width: 0;
     height: 0;
-    border-top:3px solid red;
+    border-top:3px solid green;
     border-right:3px solid transparent;
     border-bopttom:3px solid transparent;
     border-left:3px solid transparent;
@@ -81,7 +81,7 @@ export default {
     height: 0;
     border-top:3px solid transparent;
     border-right:3px solid transparent;
-    border-bottom:3px solid green;
+    border-bottom:3px solid red;
     border-left:3px solid transparent;
     margin-left: 3px;
 

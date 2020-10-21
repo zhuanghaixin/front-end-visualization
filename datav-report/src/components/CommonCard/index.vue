@@ -36,26 +36,55 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.title{
-  font-size: 12px;
-  color: #999;
-}
-  .value{
+  .title {
+    font-size: 12px;
+    color: #999;
+  }
+
+  .value {
     font-size: 25px;
     color: #000;
     margin-top: 5px;
     letter-spacing: 1px;
   }
-  .chart{
+
+  .chart {
     height: 50px;
   }
-  .line{
+
+  .line {
     margin: 10px 0;
     border-top: 1px solid #eee;
   }
-  .total{
+
+  .total {
     color: #666;
     font-size: 12px;
+  }
+
+  .emphasize {
+    margin-left: 5px;
+    color: #333;
+    font-weight: 700;
+  }
+  .increase{
+    width: 0;
+    height: 0;
+    border-top:3px solid red;
+    border-right:3px solid transparent;
+    border-bopttom:3px solid transparent;
+    border-left:3px solid transparent;
+    margin-left: 3px;
+  }
+  .decrease{
+    width: 0;
+    height: 0;
+    border-top:3px solid transparent;
+    border-right:3px solid transparent;
+    border-bottom:3px solid green;
+    border-left:3px solid transparent;
+    margin-left: 3px;
 
   }
+
 </style>

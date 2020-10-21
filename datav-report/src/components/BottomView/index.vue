@@ -1,15 +1,15 @@
 <template>
-    <div>
-      Bottom View
-    </div>
+  <div>
+    Bottom View
+  </div>
 </template>
 
 <script>
-    export default {
-        name: "index"
-    }
+export default {
+  name: 'index'
+}
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 
 </style>

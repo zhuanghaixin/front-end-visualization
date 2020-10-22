@@ -75,7 +75,7 @@ export default {
               const end = new Date()
               const start = new Date()
               start.setTime(start.getTime() - 3600 * 1000 * 24 * 30)
-              picker.$emit('pick', [start, end], ture)
+              picker.$emit('pick', [start, end], true)
             }
           }, {
             text: '最近三个月',

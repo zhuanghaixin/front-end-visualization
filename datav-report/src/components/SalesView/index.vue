@@ -1,49 +1,139 @@
 <template>
-<!--  <ve-line :options="data"></ve-line>-->
-<!--  v-chart 适合快速生成不需要修改的 地图比较好用-->
-  <v-chart :options="data"/>
-<!--  &lt;!&ndash; 1.   不用设置宽高&ndash;&gt;-->
-<!--  &lt;!&ndash;  2.   不用获取echarts的实例&ndash;&gt;-->
+  <div class="sales-view">
+    <el-card shadow="hover">
+      <template v-slot:header>
+        <!-- 菜单导航 -->
+        <div class="menu-wrapper">
+          <el-menu
+            mode="horizontal"
+            :default-active="activeIndex"
+            @select="onMenuSelect"
+            class="sales-view-menu"
+          >
+            <el-menu-item index="1">
+              销售额
+            </el-menu-item>
+            <el-menu-item index="2">
+              访问量
+            </el-menu-item>
+          </el-menu>
+          <div class="menu-right">
+            <!-- RadioButtonGroup -->
+            <el-radio-group v-model="radioSelect" size="small">
+              <el-radio-button label="今日"></el-radio-button>
+              <el-radio-button label="本周"></el-radio-button>
+              <el-radio-button label="本月"></el-radio-button>
+              <el-radio-button label="今年"></el-radio-button>
+            </el-radio-group>
+            <!--  日期选择器       -->
+              <el-date-picker
+                size="small"
+                type="daterange"
+                unlink-panels
+                range-separator="至"
+                start-placeholder="开始日期"
+                end-placeholder="结束日期"
+                class="sales-view-date-picker"
+                :picker-options="pickerOptions"
+                v-model="timeValue"
+              ></el-date-picker>
+          </div>
+
+        </div>
+
+      </template>
+      <template>
+
+      </template>
+    </el-card>
+  </div>
 
 </template>
 
 <script>
 export default {
   name: 'index',
-  // vue-charts
   data () {
     return {
-      data: {
-        xAxis: {},
-        yAxis: {},
-        series: [{
-          type: 'line',
-          data: [100, 200, 300]
-        }]
-      }
+      // 菜单
+      activeIndex: '1',
+      radioSelect: '今年',
+      pickerOptions: {
+        shortcuts: [
+          {
+            text: '最近一周',
+            onClick (picker) {
+              console.log(picker)
+              const end = new Date()
+              const start = new Date()
+              start.setTime(start.getTime() - 3600 * 1000 * 24 * 7)
+              picker.$emit('pick', [start, end], true)
+            }
+          }, {
+            text: '最近一个月',
+            onClick (picker) {
+              const end = new Date()
+              const start = new Date()
+              start.setTime(start.getTime() - 3600 * 1000 * 24 * 30)
+              picker.$emit('pick', [start, end,true])
+            }
+          }, {
+            text: '最近三个月',
+            onClick (picker) {
+              const end = new Date()
+              const start = new Date()
+              start.setTime(start.getTime() - 3600 * 1000 * 24 * 90)
+              picker.$emit('pick', [start, end],true)
+            }
+          }
+        ]
+      },
+      timeValue: ''
     }
+  },
+  methods: {
+    // 菜单
+    onMenuSelect (index) {
+      console.log(index)
+
+      this.activeIndex = index
+    }
+
   }
-  // v-chart
-  // data () {
-  //   return {
-  //     chartData: {
-  //       columns: ['日期', '访问用户', '下单用户', 'test'],
-  //       rows: [
-  //         { 日期: '2018-05-22', 访问用户: 32371, 下单用户: 19810, test: 1000 },
-  //         { 日期: '2018-05-23', 访问用户: 12328, 下单用户: 4398, test: 30000 },
-  //         { 日期: '2018-05-24', 访问用户: 92381, 下单用户: 52910, test: 40000 }
-  //       ]
-  //     }
-  //
-  //   }
-  // }
+
 }
 
 </script>
 
 <style lang="scss" scoped>
-.echarts {
-  width: 100%;
-  height: 100%;
+.sales-view {
+  margin-top: 20px;
+    .menu-wrapper{
+      position: relative;
+      display: flex;
+      .sales-view-menu{
+        width: 100%;
+        padding-left: 20px;
+        .el-menu-item{
+          height: 50px;
+          line-height: 50px;
+          margin: 0 20px;
+        }
+      }
+      .menu-right{
+        position: absolute;
+        right: 20px;
+        top: 0;
+        height: 50px;
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        .sales-view-date-picker{
+          margin-left: 20px;
+        }
+      }
+    }
+
 }
+
 </style>
